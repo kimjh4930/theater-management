@@ -23,4 +23,11 @@ public class MovieTitle {
             throw new IllegalArgumentException("영화제목은 공백으로 시작하거나, 끝날 수 없습니다.");
         }
     }
+
+    @Override
+    public String toString() {
+        return "MovieTitle{" +
+                "title='" + title + '\'' +
+                '}';
+    }
 }

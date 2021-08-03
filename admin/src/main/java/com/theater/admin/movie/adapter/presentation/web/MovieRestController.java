@@ -1,8 +1,7 @@
 package com.theater.admin.movie.adapter.presentation.web;
 
 import com.theater.admin.movie.application.MovieService;
-import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,28 +11,34 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController("/movie")
-@RequiredArgsConstructor
 public class MovieRestController {
     private final MovieService movieService;
 
-    @PostMapping
-    public ResponseEntity<StoredMovie> add (@RequestBody NewMovie newMovie) throws URISyntaxException {
-        URI redirectUri = new URI("/movie");
-        HttpHeaders headers = new HttpHeaders();
-        headers.setLocation(redirectUri);
-        return new ResponseEntity<>(headers, HttpStatus.PERMANENT_REDIRECT);
+    @Autowired
+    public MovieRestController(MovieService movieService) {
+        this.movieService = movieService;
     }
 
-    @GetMapping
+    @PostMapping
+    public ResponseEntity add (@RequestBody NewMovie newMovie) throws URISyntaxException {
+        Long id = movieService.create(newMovie);
+
+        return ResponseEntity
+                .status(HttpStatus.PERMANENT_REDIRECT)
+                .location(new URI("/" + id))
+                .build();
+    }
+
+    @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<StoredMovie> findOne (@RequestAttribute("id") Long id){
-        return null;
+    public ResponseEntity<StoredMovie> findOne (@PathVariable("id") Long id){
+        return ResponseEntity.ok(movieService.findOne(id));
     }
 
     @GetMapping("/all")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<List<StoredMovie>> findAll (){
-        return null;
+        return ResponseEntity.ok(movieService.findAll());
     }
 
 }

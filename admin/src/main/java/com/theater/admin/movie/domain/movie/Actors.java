@@ -14,7 +14,7 @@ public class Actors {
                 .collect(Collectors.toList());
     }
 
-    public List<String> valueOf (){
+    public List<String> getActors (){
         return actors.stream()
                 .map(Name::getName)
                 .collect(Collectors.toList());

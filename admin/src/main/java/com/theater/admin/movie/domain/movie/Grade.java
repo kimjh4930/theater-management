@@ -4,14 +4,14 @@ import java.util.List;
 
 public enum Grade {
     ALL(0, "ALL", "전체관람가"),
-    PG12(1, "PG12", "12세관람가"),
-    PG15(2, "PG15", "15세관람가"),
-    ADULT(3, "ADULT", "청소년관람불가");
+    PG12(1, "PG12", "12세이상관람가"),
+    PG15(2, "PG15", "15세이상관람가"),
+    PG18(3, "PG18", "18세이상관람가");
 
     private static final int ALL_VALUE = 0;
     private static final int PG12_VALUE = 1;
     private static final int PG15_VALUE = 2;
-    private static final int ADULT_VALUE = 3;
+    private static final int PG18_VALUE = 3;
 
     private final int value;
     private final String grade;
@@ -25,7 +25,7 @@ public enum Grade {
 
     private static final Grade[] VALUES_ARRAY =
             new Grade[] {
-              ALL, PG12, PG15, ADULT
+              ALL, PG12, PG15, PG18
             };
 
     public static final List<Grade> VALUES = List.of(VALUES_ARRAY);
@@ -45,7 +45,7 @@ public enum Grade {
             case ALL_VALUE : return ALL;
             case PG12_VALUE : return PG12;
             case PG15_VALUE : return PG15;
-            case ADULT_VALUE : return ADULT;
+            case PG18_VALUE : return PG18;
         }
         return null;
     }
