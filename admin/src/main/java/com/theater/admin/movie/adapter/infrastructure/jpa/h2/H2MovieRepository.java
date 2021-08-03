@@ -53,6 +53,17 @@ public class H2MovieRepository implements MovieRepository {
     }
 
     @Override
+    public Optional<Movie> findByTitle(String title) {
+        MovieEntity findMovie = entityManager.createQuery(
+                "select m from MovieEntity m where m.title =: title", MovieEntity.class)
+                .setParameter("title", title)
+                .getSingleResult();
+
+        return Optional.ofNullable(findMovie)
+                .map(this::toMovie);
+    }
+
+    @Override
     public boolean isNotExist (Long id){
         return entityManager.find(MovieEntity.class, id) == null;
     }

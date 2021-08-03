@@ -8,5 +8,6 @@ public interface MovieRepository {
     Long update(Movie updatedMovie);
     List<Movie> findAll();
     Optional<Movie> findById(Long id);
+    Optional<Movie> findByTitle(String title);
     boolean isNotExist (Long id);
 }

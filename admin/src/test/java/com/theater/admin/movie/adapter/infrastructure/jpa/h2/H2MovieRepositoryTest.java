@@ -2,9 +2,13 @@ package com.theater.admin.movie.adapter.infrastructure.jpa.h2;
 
 import com.theater.admin.movie.domain.movie.Movie;
 import com.theater.admin.movie.domain.movie.MovieRepository;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
@@ -67,6 +71,7 @@ class H2MovieRepositoryTest {
     }
 
     @Transactional
+    @Rollback
     @DisplayName("데이터베이스에 등록한 모든 영화를 조회한다.")
     @Test
     void findAll (){
@@ -76,7 +81,6 @@ class H2MovieRepositoryTest {
         List<Movie> savedMovies = repository.findAll();
 
         //then
-        savedMovies.forEach(System.out::println);
         assertThat(savedMovies.size()).isEqualTo(movies.size());
     }
 
@@ -106,13 +110,28 @@ class H2MovieRepositoryTest {
         assertThat(savedMovie.getVersion()).isEqualTo(0);
     }
 
+    @Transactional
+    @DisplayName("영화 제목으로 조회한다.")
+    @Test
+    void findByTitle () {
+        //given
+        String title = "아바타";
+
+        //when
+        Movie findMovie = repository.findByTitle(title).orElseThrow(() -> new NullPointerException());
+
+        //then
+        assertThat(findMovie.getTitle()).isEqualTo(title);
+    }
 
     @Transactional
+    @Rollback
     @DisplayName("영화관람 등급을 변경한다")
     @Test
     void update (){
         //given
-        Movie parasite = repository.findById(1L).orElseThrow(() -> new NullPointerException());
+        String title = "기생충";
+        Movie parasite = repository.findByTitle(title).orElseThrow(() -> new NullPointerException());
 
         Movie updated = new Movie.Builder(
                 "기생충",

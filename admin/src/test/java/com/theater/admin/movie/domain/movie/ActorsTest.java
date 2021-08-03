@@ -15,7 +15,7 @@ class ActorsTest {
         Actors actors = new Actors(actorNames);
 
         //when
-        List<String> actorsName = actors.valueOf();
+        List<String> actorsName = actors.getActors();
 
         //then
         Assertions.assertThat(actorsName).isEqualTo(actorNames);
