@@ -19,16 +19,6 @@ public class MovieRestController {
         this.movieService = movieService;
     }
 
-    @PostMapping
-    public ResponseEntity add (@RequestBody NewMovie newMovie) throws URISyntaxException {
-        Long id = movieService.create(newMovie);
-
-        return ResponseEntity
-                .status(HttpStatus.PERMANENT_REDIRECT)
-                .location(new URI("/" + id))
-                .build();
-    }
-
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<StoredMovie> findOne (@PathVariable("id") Long id){
@@ -41,4 +31,13 @@ public class MovieRestController {
         return ResponseEntity.ok(movieService.findAll());
     }
 
+    @PostMapping
+    public ResponseEntity add (@RequestBody NewMovie newMovie) throws URISyntaxException {
+        Long id = movieService.create(newMovie);
+
+        return ResponseEntity
+                .status(HttpStatus.PERMANENT_REDIRECT)
+                .location(new URI("/" + id))
+                .build();
+    }
 }

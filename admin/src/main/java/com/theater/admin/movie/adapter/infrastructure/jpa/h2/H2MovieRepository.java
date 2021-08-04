@@ -34,6 +34,7 @@ public class H2MovieRepository implements MovieRepository {
                 .orElseThrow(() -> new NullPointerException("수정할 대상이 존재하지 않습니다."));
 
         oldMovie.updateMovie(updatedMovie);
+        entityManager.flush();
 
         return oldMovie.getId();
     }

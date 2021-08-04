@@ -2,6 +2,7 @@ package com.theater.admin.movie.domain.movie;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 public class Movie {
     private Long id;
@@ -93,6 +94,19 @@ public class Movie {
         public Movie build() {
             return new Movie(this);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Movie movie = (Movie) o;
+        return id.equals(movie.id) && version.equals(movie.version) && title.equals(movie.title) && director.equals(movie.director) && openingDate.equals(movie.openingDate) && actors.equals(movie.actors) && grade == movie.grade && runningTime.equals(movie.runningTime);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, version, title, director, openingDate, actors, grade, runningTime);
     }
 
     @Override

@@ -9,7 +9,7 @@ create table movie (
     running_time integer not null,
     title varchar(255),
     version integer,
-    primary key (movie_i
+    primary key (movie_id)
 );
 
 create table movie_entity_actors (
