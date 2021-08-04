@@ -24,6 +24,7 @@ public class H2MovieRepository implements MovieRepository {
     public Long save(Movie movie) {
         MovieEntity entity = new MovieEntity(movie);
         entityManager.persist(entity);
+        entityManager.flush();
         return entity.getId();
     }
 

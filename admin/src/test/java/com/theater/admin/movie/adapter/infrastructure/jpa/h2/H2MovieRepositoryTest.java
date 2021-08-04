@@ -2,8 +2,6 @@ package com.theater.admin.movie.adapter.infrastructure.jpa.h2;
 
 import com.theater.admin.movie.domain.movie.Movie;
 import com.theater.admin.movie.domain.movie.MovieRepository;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +12,6 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -27,7 +24,7 @@ class H2MovieRepositoryTest {
 
     @Autowired
     private MovieRepository repository;
-
+/*
     private static List<Movie> movies = new ArrayList<>();
 
     @BeforeAll
@@ -54,7 +51,7 @@ class H2MovieRepositoryTest {
                 "아바타",
                 "James Francis Cameron",
                 LocalDate.of(2009, 12, 17),
-                List.of("Sam Worthington, Jo Saldana"),
+                List.of("Sam Worthington", "Jo Saldana"),
                 "PG12",
                 162
         ).build();
@@ -69,19 +66,22 @@ class H2MovieRepositoryTest {
     void setupDB (){
         movies.forEach(movie -> repository.save(movie));
     }
+ */
 
     @Transactional
-    @Rollback
     @DisplayName("데이터베이스에 등록한 모든 영화를 조회한다.")
     @Test
     void findAll (){
+        System.out.println("findAll");
         //given
 
         //when
         List<Movie> savedMovies = repository.findAll();
 
         //then
-        assertThat(savedMovies.size()).isEqualTo(movies.size());
+        System.out.println("result");
+        savedMovies.forEach(System.out::println);
+        assertThat(savedMovies.size()).isNotZero();
     }
 
     @Transactional
