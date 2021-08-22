@@ -15,5 +15,5 @@ insert into movie_entity_actors (movie_entity_movie_id, actors) values (2, '김�
 insert into movie_entity_actors (movie_entity_movie_id, actors) values (2, '백윤식');
 insert into movie_entity_actors (movie_entity_movie_id, actors) values (2, '유해진');
 
-insert into movie_entity_actors (movie_entity_movie_id, actors) values (3, 'Sam Worthington');
+insert into movie_entity_actors (movie_entity_movie_id, actors) values (3, 'Sam Wort타hington');
 insert into movie_entity_actors (movie_entity_movie_id, actors) values (3, 'Jo Saldana');

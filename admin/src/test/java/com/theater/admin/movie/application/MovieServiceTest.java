@@ -7,8 +7,6 @@ import com.theater.admin.movie.domain.movie.Movie;
 import com.theater.admin.movie.domain.movie.MovieRepository;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -57,36 +55,6 @@ class MovieServiceTest {
         //then
         storedMovies.forEach(System.out::println);
         assertThat(storedMovies).isNotEmpty();
-    }
-
-    @Transactional
-    @DisplayName("id 로 등록된 영화를 검색한다.")
-    @ParameterizedTest
-    @ValueSource(longs = {1L, 2L, 3L})
-    void findById (Long id){
-        //given
-
-        //when
-        StoredMovie storedMovie = movieService.findOne(id);
-
-        //then
-        System.out.println(storedMovie);
-        assertThat(storedMovie).isNotNull();
-    }
-
-    @Transactional
-    @DisplayName("title 로 등록된 영화를 검색한다.")
-    @ParameterizedTest
-    @ValueSource(strings = {"기생충", "타짜", "아바타"})
-    void findByTitle (String title){
-        //given
-
-        //when
-        StoredMovie storedMovie = movieService.findByTitle(title);
-
-        //then
-        System.out.println(storedMovie);
-        assertThat(storedMovie).isNotNull();
     }
 
     @Transactional

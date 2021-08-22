@@ -15,3 +15,7 @@ spring:
     baseline-on-migrate: true
     baseline-version: 0
     enabled: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true

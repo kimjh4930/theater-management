@@ -62,17 +62,17 @@ public class MovieService {
                 .collect(Collectors.toUnmodifiableList());
     }
 
-    @Transactional(readOnly = true)
-    public StoredMovie findOne (Long id){
-        return movieRepository.findById(id)
-                .map(StoredMovie::new)
-                .orElseThrow(() -> new NullPointerException("찾는 영화가 없습니다."));
-    }
-
-    @Transactional(readOnly = true)
-    public StoredMovie findByTitle (String title){
-        return movieRepository.findByTitle(title)
-                .map(StoredMovie::new)
-                .orElseThrow(() -> new NullPointerException("찾는 영화가 없습니다."));
-    }
+//    @Transactional(readOnly = true)
+//    public StoredMovie findOne (Long id){
+//        return movieRepository.findById(id)
+//                .map(StoredMovie::new)
+//                .orElseThrow(() -> new NullPointerException("찾는 영화가 없습니다."));
+//    }
+//
+//    @Transactional(readOnly = true)
+//    public StoredMovie findByTitle (String title){
+//        return movieRepository.findByTitle(title)
+//                .map(StoredMovie::new)
+//                .orElseThrow(() -> new NullPointerException("찾는 영화가 없습니다."));
+//    }
 }

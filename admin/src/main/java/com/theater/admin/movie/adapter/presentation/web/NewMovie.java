@@ -1,19 +1,24 @@
 package com.theater.admin.movie.adapter.presentation.web;
 
-import lombok.Builder;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
 @NoArgsConstructor
 public class NewMovie {
+
     private String title;
     private String director;
+
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate openingDate;
     private List<String> actors = new ArrayList<>();
     private String grade;
@@ -32,19 +37,4 @@ public class NewMovie {
         this.grade = grade;
         this.runningTime = runningTime;
     }
-
-//    public static class Builder {
-//        private String name;
-//        private String director;
-//        private LocalDateTime openingDate;
-//        private List<String> actors = new ArrayList<>();
-//        private String nation;
-//        private String grade;w
-//        private int runningTime;
-//
-//        public Builder name(String name){
-//            this.name = name;
-//            return this;
-//        }
-//    }
 }

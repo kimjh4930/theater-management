@@ -1,43 +1,52 @@
 package com.theater.admin.movie.adapter.presentation.web;
 
 import com.theater.admin.movie.application.MovieService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.theater.admin.movie.domain.movie.MovieRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.List;
+import java.util.stream.Collectors;
 
-@RestController("/movie")
+@RequiredArgsConstructor
+@RestController
+@RequestMapping("/movies")
 public class MovieRestController {
     private final MovieService movieService;
+    private final MovieRepository movieRepository;
 
-    @Autowired
-    public MovieRestController(MovieService movieService) {
-        this.movieService = movieService;
+    @GetMapping
+    public ResponseEntity<List<StoredMovie>> findAll (){
+        List<StoredMovie> storedMovies = movieRepository.findAll().stream()
+                .map(StoredMovie::new)
+                .collect(Collectors.toUnmodifiableList());
+        return new ResponseEntity<>(storedMovies, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<StoredMovie> findOne (@PathVariable("id") Long id){
-        return ResponseEntity.ok(movieService.findOne(id));
-    }
-
-    @GetMapping("/all")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<List<StoredMovie>> findAll (){
-        return ResponseEntity.ok(movieService.findAll());
+        StoredMovie findMovie = movieRepository.findById(id)
+                .map(StoredMovie::new)
+                .orElseThrow(() -> new NullPointerException());
+        return new ResponseEntity<>(findMovie, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity add (@RequestBody NewMovie newMovie) throws URISyntaxException {
+    public ResponseEntity add (@RequestBody NewMovie newMovie) {
         Long id = movieService.create(newMovie);
 
-        return ResponseEntity
-                .status(HttpStatus.PERMANENT_REDIRECT)
-                .location(new URI("/" + id))
-                .build();
+        return new ResponseEntity(id, HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id")
+    public ResponseEntity update (
+            @PathVariable("id") Long id,
+            @RequestBody UpdatedMovie updatedMovie) {
+
+        Long updatedId = movieService.update(updatedMovie);
+
+        return new ResponseEntity(updatedId, HttpStatus.OK);
     }
 }

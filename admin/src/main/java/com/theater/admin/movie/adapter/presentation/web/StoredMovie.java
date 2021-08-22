@@ -9,6 +9,7 @@ import java.util.List;
 @Getter
 public class StoredMovie {
     private Long id;
+    private Integer version;
     private String title;
     private String director;
     private LocalDate openingDate;
@@ -18,6 +19,7 @@ public class StoredMovie {
 
     public StoredMovie (Movie movie){
         this.id = movie.getId();
+        this.version = movie.getVersion();
         this.title = movie.getTitle();
         this.director = movie.getDirector();
         this.openingDate = movie.getOpeningDate();
@@ -30,6 +32,7 @@ public class StoredMovie {
     public String toString() {
         return "StoredMovie{" +
                 "id=" + id +
+                ", version=" + version +
                 ", title='" + title + '\'' +
                 ", director='" + director + '\'' +
                 ", openingDate=" + openingDate +
