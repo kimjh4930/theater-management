@@ -22,18 +22,19 @@ public class H2MovieRepository implements MovieRepository {
 
     @Override
     public Long save(Movie movie) {
-        MovieEntity entity = new MovieEntity(movie);
-        entityManager.persist(entity);
+        entityManager.persist(movie);
         entityManager.flush();
-        return entity.getId();
+
+        return movie.getId();
     }
 
     @Override
     public Long update(Movie updatedMovie) {
-        MovieEntity oldMovie = Optional.ofNullable(entityManager.find(MovieEntity.class, updatedMovie.getId()))
+        Movie oldMovie = Optional.ofNullable(entityManager.find(Movie.class, updatedMovie.getId()))
                 .orElseThrow(() -> new NullPointerException("수정할 대상이 존재하지 않습니다."));
 
-        oldMovie.updateMovie(updatedMovie);
+        oldMovie.update(updatedMovie);
+
         entityManager.flush();
 
         return oldMovie.getId();
@@ -41,46 +42,27 @@ public class H2MovieRepository implements MovieRepository {
 
     @Override
     public List<Movie> findAll() {
-        return entityManager.createQuery("select m from MovieEntity m", MovieEntity.class)
-                .getResultList()
-                .stream()
-                .map(entity -> toMovie(entity))
-                .collect(Collectors.toUnmodifiableList());
+        return entityManager.createQuery("select m from Movie m", Movie.class)
+                .getResultList();
     }
 
     @Override
     public Optional<Movie> findById(Long id) {
-        return Optional.ofNullable(entityManager.find(MovieEntity.class, id))
-                .map(this::toMovie);
+        return Optional.ofNullable(entityManager.find(Movie.class, id));
     }
 
     @Override
     public Optional<Movie> findByTitle(String title) {
-        MovieEntity findMovie = entityManager.createQuery(
-                "select m from MovieEntity m where m.title =: title", MovieEntity.class)
+        Movie findMovie = entityManager.createQuery(
+                "select m from Movie m where m.title.title =: title", Movie.class)
                 .setParameter("title", title)
                 .getSingleResult();
 
-        return Optional.ofNullable(findMovie)
-                .map(this::toMovie);
+        return Optional.ofNullable(findMovie);
     }
 
     @Override
     public boolean isNotExist (Long id){
         return entityManager.find(MovieEntity.class, id) == null;
-    }
-
-    private Movie toMovie (MovieEntity entity){
-        return new Movie.Builder(
-                    entity.getTitle(),
-                    entity.getDirector(),
-                    entity.getOpeningDate(),
-                    entity.getActors(),
-                    entity.getGrade(),
-                    entity.getRunningTime()
-                )
-                .id(entity.getId())
-                .version(entity.getVersion())
-                .build();
     }
 }

@@ -2,10 +2,15 @@ package com.theater.admin.movie.domain.movie;
 
 import org.springframework.util.StringUtils;
 
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
 import java.util.Objects;
 
-public final class Name {
-    private final String name;
+@Embeddable
+public class Name {
+    private String name;
+
+    public Name() { }
 
     public Name(final String name) {
         validate(name);
@@ -22,7 +27,7 @@ public final class Name {
         }
     }
 
-    public final String getName(){
+    public String getName(){
         return name;
     }
 

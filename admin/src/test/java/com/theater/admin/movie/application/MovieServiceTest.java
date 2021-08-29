@@ -40,6 +40,8 @@ class MovieServiceTest {
 
         //then
         System.out.println("NewMovie id : " + id);
+        Movie saved = movieRepository.findById(id).orElseThrow(() -> new NullPointerException());
+        System.out.println("saved : " + saved);
         assertThat(id).isNotNull();
     }
 

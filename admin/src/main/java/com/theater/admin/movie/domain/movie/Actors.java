@@ -1,11 +1,22 @@
 package com.theater.admin.movie.domain.movie;
 
+import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+@Embeddable
 public class Actors {
-    private final List<Name> actors;
+
+    @ElementCollection
+    @CollectionTable(name = "movie_entity_actors", joinColumns = @JoinColumn(name = "movie_entity_movie_id"))
+    @AttributeOverrides({
+            @AttributeOverride(name = "name", column = @Column(name = "actors"))
+    })
+    private List<Name> actors = new ArrayList<>();
+
+    public Actors () {}
 
     public Actors(List<String> actors) {
         this.actors = actors

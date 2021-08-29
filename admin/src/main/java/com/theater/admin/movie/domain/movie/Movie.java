@@ -1,18 +1,46 @@
 package com.theater.admin.movie.domain.movie;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 
+@Entity
+@Table(name = "movie")
 public class Movie {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "movie_id")
     private Long id;
+
+    @Version
     private Integer version;
-    private final MovieTitle title;
-    private final Name director;
-    private final LocalDate openingDate;
-    private final Actors actors;
-    private final Grade grade;
-    private final RunningTime runningTime;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "title", column = @Column(name = "title"))
+    })
+    private MovieTitle title;
+
+    @Embedded
+    @AttributeOverrides({
+            @AttributeOverride(name = "name", column = @Column(name = "director"))
+    })
+    private Name director;
+
+    private LocalDate openingDate;
+
+    @Embedded
+    private Actors actors = new Actors();
+
+    @Enumerated(EnumType.STRING)
+    private Grade grade;
+
+    @Embedded
+    private RunningTime runningTime;
+
+    protected Movie () {}
 
     private Movie(Builder builder){
         this.id = builder.id;
@@ -55,6 +83,15 @@ public class Movie {
 
     public Integer getRunningTime (){
         return this.runningTime.valueOf();
+    }
+
+    public void update (Movie updatedData){
+        this.title = new MovieTitle(updatedData.getTitle());
+        this.director = new Name(updatedData.getDirector());
+        this.openingDate = updatedData.getOpeningDate();
+        this.actors = new Actors(updatedData.getActors());
+        this.grade = Grade.get(updatedData.getGrade());
+        this.runningTime = new RunningTime(updatedData.getRunningTime());
     }
 
     public static class Builder {
