@@ -24,49 +24,6 @@ class H2MovieRepositoryTest {
 
     @Autowired
     private MovieRepository repository;
-/*
-    private static List<Movie> movies = new ArrayList<>();
-
-    @BeforeAll
-    static void init (){
-        Movie parasite = new Movie.Builder(
-                "기생충",
-                "봉준호",
-                LocalDate.of(2019, 5, 30),
-                List.of("송강호", "이선균", "조여정", "최우식", "박소담", "이정은", "장혜진"),
-                "PG15",
-                131)
-                .build();
-
-        Movie gambler = new Movie.Builder(
-                "타짜",
-                "최동훈",
-                LocalDate.of(2006, 9, 28),
-                List.of("조승우","김혜수","백윤식","유해진"),
-                "PG18",
-                139)
-                .build();
-
-        Movie avatar = new Movie.Builder(
-                "아바타",
-                "James Francis Cameron",
-                LocalDate.of(2009, 12, 17),
-                List.of("Sam Worthington", "Jo Saldana"),
-                "PG12",
-                162
-        ).build();
-
-        movies.add(parasite);
-        movies.add(gambler);
-        movies.add(avatar);
-    }
-
-    @BeforeEach
-    @Transactional
-    void setupDB (){
-        movies.forEach(movie -> repository.save(movie));
-    }
- */
 
     @Transactional
     @DisplayName("데이터베이스에 등록한 모든 영화를 조회한다.")
@@ -152,8 +109,6 @@ class H2MovieRepositoryTest {
         //then
         Movie updatedMovie = repository.findById(parasite.getId()).orElseThrow(() -> new NullPointerException());
         assertThat(updatedMovie.getGrade()).isEqualTo("PG18");
-
-        //이건 실제 DB를 사용해서 확인
         assertThat(updatedMovie.getVersion()).isEqualTo(1);
     }
 }

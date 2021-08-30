@@ -2,8 +2,13 @@ package com.theater.admin.movie.domain.movie;
 
 import org.springframework.util.StringUtils;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class MovieTitle {
-    private final String title;
+    private String title;
+
+    protected MovieTitle() {}
 
     public MovieTitle(final String title) {
         validate(title);

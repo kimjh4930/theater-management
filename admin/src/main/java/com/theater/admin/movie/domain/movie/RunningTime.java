@@ -1,9 +1,13 @@
 package com.theater.admin.movie.domain.movie;
 
+import javax.persistence.Embeddable;
 import java.util.Objects;
 
+@Embeddable
 public class RunningTime {
-    private final Integer runningTime;
+    private Integer runningTime;
+
+    protected RunningTime() {}
 
     public RunningTime(Integer runningTime) {
         validate(runningTime);

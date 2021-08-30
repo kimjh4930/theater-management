@@ -12,6 +12,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -40,7 +41,10 @@ class MovieServiceTest {
 
         //then
         System.out.println("NewMovie id : " + id);
+        Movie saved = movieRepository.findById(id).orElseThrow(() -> new NullPointerException());
+        System.out.println("saved : " + saved);
         assertThat(id).isNotNull();
+        assertThat(saved.getCreatedAt()).isBefore(LocalDateTime.now());
     }
 
     @Transactional
@@ -63,6 +67,7 @@ class MovieServiceTest {
     void update (){
         //given
         Movie parasite = movieRepository.findByTitle("기생충").orElseThrow(() -> new NullPointerException());
+        LocalDateTime lastUpdatedAt = parasite.getUpdatedAt();
         UpdatedMovie updatedParasite = new UpdatedMovie(
                 parasite.getId(),
                 parasite.getTitle(),
@@ -78,8 +83,9 @@ class MovieServiceTest {
         Movie findMovie = movieRepository.findById(id).orElseThrow(() -> new NullPointerException());
 
         //then
-        System.out.println("findMovie : " + findMovie);
+
         assertThat(findMovie.getOpeningDate()).isEqualTo(updatedParasite.getOpeningDate());
         assertThat(findMovie.getVersion()).isEqualTo(1);
+        assertThat(findMovie.getUpdatedAt()).isAfter(lastUpdatedAt);
     }
 }
