@@ -97,24 +97,6 @@ class MovieRestControllerTest {
     @Test
     void update () throws Exception {
         Long id = 1L;
-//        String requestBody = "{\n" +
-//                "  \"id\": 1,\n" +
-//                "  \"title\": \"기생충1\",\n" +
-//                "  \"director\": \"봉준호\",\n" +
-//                "  \"openingDate\": \"2021-08-31\",\n" +
-//                "  \"actors\": [\n" +
-//                "    \"송강호\",\n" +
-//                "    \"이션균\",\n" +
-//                "    \"조여정\",\n" +
-//                "    \"최우식\",\n" +
-//                "    \"박소담\",\n" +
-//                "    \"정만식\",\n" +
-//                "    \"김재화\",\n" +
-//                "    \"박경혜\"\n" +
-//                "  ],\n" +
-//                "  \"grade\": \"PG18\",\n" +
-//                "  \"runningTime\": 131\n" +
-//                "}";
 
         UpdatedMovie updatedMovie = new UpdatedMovie(
                 1L,
@@ -133,42 +115,6 @@ class MovieRestControllerTest {
                 .andReturn();
 
         String result = mvcResult.getResponse().getContentAsString();
-
         System.out.println("result : " + result);
-
-//        StoredMovie response = new ObjectMapper().readValue(mvcResult.getResponse().getContentAsString(), StoredMovie.class);
-//
-//        System.out.println("response : " + response);
     }
-
-//    @DisplayName("영화 등록에 실패한다")
-//    @Test
-//    void addFail () throws Exception {
-//        String requestBody = "{\n" +
-//                "  \"title\": \"모가디슈\",\n" +
-//                "  \"openingDate\": \"2021-07-28\",\n" +
-//                "  \"actors\": [\n" +
-//                "    \"김윤석\",\n" +
-//                "    \"조인성\",\n" +
-//                "    \"허준호\",\n" +
-//                "    \"구교환\",\n" +
-//                "    \"김소진\",\n" +
-//                "    \"정만식\",\n" +
-//                "    \"김재화\",\n" +
-//                "    \"박경혜\"\n" +
-//                "  ],\n" +
-//                "  \"grade\": \"PG15\",\n" +
-//                "  \"runningTime\": 131\n" +
-//                "}";
-//
-//        this.mockMvc.perform(post("/movies")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content(requestBody))
-//                .andDo(print())
-//                .andExpect(status().isBadRequest())
-//                .andExpect(mvcResult -> assertThat())
-//                .andExpect(content().string("4"))
-//        ;
-//    }
-
 }

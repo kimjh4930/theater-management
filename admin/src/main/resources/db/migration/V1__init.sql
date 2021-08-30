@@ -9,6 +9,8 @@ create table movie (
     running_time integer not null,
     title varchar(255),
     version integer,
+    created_at timestamp,
+    updated_at timestamp,
     primary key (movie_id)
 );
 
