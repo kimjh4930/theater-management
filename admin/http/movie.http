@@ -1,0 +1,37 @@
+###
+GET {{host}}/movies
+
+###
+GET {{host}}/movies/1
+
+###
+GET {{host}}/movies/2
+
+###
+GET {{host}}/movies/3
+
+###
+POST {{host}}/movies
+Content-Type: application/json
+
+{
+  "title": "모가디슈",
+  "director": "류승완",
+  "openingDate": "2021-07-28",
+  "actors": [
+    "김윤석",
+    "조인성",
+    "허준호",
+    "구교환",
+    "김소진",
+    "정만식",
+    "김재화",
+    "박경혜"
+  ],
+  "grade": "PG15",
+  "runningTime": 131
+}
+
+###
+
+GET {{host}}/movies/4
