@@ -26,6 +26,7 @@ class H2MovieRepositoryTest {
     private MovieRepository repository;
 
     @Transactional
+    @Rollback
     @DisplayName("데이터베이스에 등록한 모든 영화를 조회한다.")
     @Test
     void findAll (){
@@ -42,6 +43,7 @@ class H2MovieRepositoryTest {
     }
 
     @Transactional
+    @Rollback
     @DisplayName("Movie를 저장 후 조회한다.")
     @Test
     void save () {
@@ -68,6 +70,7 @@ class H2MovieRepositoryTest {
     }
 
     @Transactional
+    @Rollback
     @DisplayName("영화 제목으로 조회한다.")
     @Test
     void findByTitle () {

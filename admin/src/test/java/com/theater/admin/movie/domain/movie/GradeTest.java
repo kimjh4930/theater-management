@@ -9,7 +9,7 @@ class GradeTest {
 
     @DisplayName("String 값으로 Enum 값을 가져올 수 있다.")
     @ParameterizedTest
-    @ValueSource(strings = {"ALL", "PG12", "PG15", "ADULT"} )
+    @ValueSource(strings = {"ALL", "PG12", "PG15", "PG18"} )
     void setGrade (String stringGrade){
         Assertions.assertThat(Grade.get(stringGrade)).isEqualTo(Grade.valueOf(stringGrade));
     }

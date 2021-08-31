@@ -5,8 +5,10 @@ import com.theater.admin.movie.domain.movie.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -15,6 +17,7 @@ import java.util.stream.Collectors;
 @RequestMapping("/movies")
 public class MovieRestController {
     private final MovieService movieService;
+    private final MovieRequestValidator movieRequestValidator;
     private final MovieRepository movieRepository;
 
     @GetMapping
@@ -34,16 +37,42 @@ public class MovieRestController {
     }
 
     @PostMapping
-    public ResponseEntity add (@RequestBody NewMovie newMovie) {
+    public ResponseEntity add (@Valid @RequestBody NewMovie newMovie, Errors errors) {
+        if(errors.hasErrors()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(errors);
+        }
+
+        movieRequestValidator.validate(newMovie, errors);
+
+        if(errors.hasErrors()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(errors);
+        }
+
         Long id = movieService.create(newMovie);
 
         return new ResponseEntity(id, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id")
+    @PutMapping("/{id}")
     public ResponseEntity update (
             @PathVariable("id") Long id,
-            @RequestBody UpdatedMovie updatedMovie) {
+            @Valid @RequestBody UpdatedMovie updatedMovie,
+            Errors errors
+            ) {
+
+        if(errors.hasErrors()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(errors);
+        }
+
+        movieRequestValidator.validate(updatedMovie, errors);
+
+        if(errors.hasErrors()){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(errors);
+        }
 
         Long updatedId = movieService.update(updatedMovie);
 
