@@ -1,8 +1,7 @@
-package com.theater.admin.movie.domain.movie;
+package com.theater.admin.common;
 
 import org.springframework.util.StringUtils;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.util.Objects;
 
@@ -19,7 +18,7 @@ public class Name {
 
     private void validate (final String name){
         if(!StringUtils.hasLength(name)){
-            throw new IllegalArgumentException("이름을 입력하세요.");
+            throw new IllegalArgumentException("값을 입력하세요.");
         }
 
         if((StringUtils.startsWithIgnoreCase(name," ") || StringUtils.endsWithIgnoreCase(name, " "))){

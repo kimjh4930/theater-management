@@ -1,7 +1,7 @@
 package com.theater.admin.movie.domain.movie;
 
+import com.theater.admin.common.Name;
 import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 

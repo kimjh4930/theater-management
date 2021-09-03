@@ -1,5 +1,7 @@
 package com.theater.admin.movie.domain.movie;
 
+import com.theater.admin.common.Name;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;

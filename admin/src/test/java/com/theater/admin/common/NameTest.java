@@ -1,5 +1,6 @@
-package com.theater.admin.movie.domain.movie;
+package com.theater.admin.common;
 
+import com.theater.admin.common.Name;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;

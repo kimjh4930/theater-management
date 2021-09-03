@@ -6,12 +6,14 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.theater.admin.movie.domain.movie.Movie;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
+@ToString
 public class StoredMovie {
     private Long id;
     private Integer version;
@@ -38,19 +40,5 @@ public class StoredMovie {
         this.runningTime = movie.getRunningTime();
         this.createdAt = movie.getCreatedAt();
         this.updatedAt = movie.getUpdatedAt();
-    }
-
-    @Override
-    public String toString() {
-        return "StoredMovie{" +
-                "id=" + id +
-                ", version=" + version +
-                ", title='" + title + '\'' +
-                ", director='" + director + '\'' +
-                ", openingDate=" + openingDate +
-                ", actors=" + actors +
-                ", grade='" + grade + '\'' +
-                ", runningTime=" + runningTime +
-                '}';
     }
 }

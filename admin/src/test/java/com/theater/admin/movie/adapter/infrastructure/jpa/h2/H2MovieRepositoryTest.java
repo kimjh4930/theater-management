@@ -26,11 +26,9 @@ class H2MovieRepositoryTest {
     private MovieRepository repository;
 
     @Transactional
-    @Rollback
     @DisplayName("데이터베이스에 등록한 모든 영화를 조회한다.")
     @Test
     void findAll (){
-        System.out.println("findAll");
         //given
 
         //when
@@ -43,7 +41,6 @@ class H2MovieRepositoryTest {
     }
 
     @Transactional
-    @Rollback
     @DisplayName("Movie를 저장 후 조회한다.")
     @Test
     void save () {
@@ -64,13 +61,14 @@ class H2MovieRepositoryTest {
 
         //then
         Movie savedMovie = repository.findById(id).orElseThrow(() -> new NullPointerException());
+
+        System.out.println("savedMovie : " + savedMovie);
         assertThat(savedMovie.getId()).isEqualTo(id);
         assertThat(repository.findAll().size()).isEqualTo(4);
         assertThat(savedMovie.getVersion()).isEqualTo(0);
     }
 
     @Transactional
-    @Rollback
     @DisplayName("영화 제목으로 조회한다.")
     @Test
     void findByTitle () {
@@ -85,7 +83,6 @@ class H2MovieRepositoryTest {
     }
 
     @Transactional
-    @Rollback
     @DisplayName("영화관람 등급을 변경한다")
     @Test
     void update (){
